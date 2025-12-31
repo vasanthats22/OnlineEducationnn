@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync Academy - Revolutionizing Online Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== ANIMATION KEYFRAMES ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-30px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.8); }
+        }
+
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* ===== ANIMATION CLASSES ===== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-on-scroll-up {
+            opacity: 0;
+            transform: translateY(-60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-left {
+            opacity: 0;
+            transform: translateX(-80px) rotate(-5deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-left.visible {
+            opacity: 1;
+            transform: translateX(0) rotate(0);
+        }
+
+        .animate-right {
+            opacity: 0;
+            transform: translateX(80px) rotate(5deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-right.visible {
+            opacity: 1;
+            transform: translateX(0) rotate(0);
+        }
+
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.5) rotate(-15deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-scale.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #3b82f6;
+            white-space: nowrap;
+            animation: typewriter 3.5s steps(40, end),
+                     blink-caret .75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #3b82f6; }
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-sparkle {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-sparkle::after {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: rotate(0deg);
+            transition: all 0.5s ease;
+        }
+
+        .btn-sparkle:hover::after {
+            opacity: 1;
+            transform: rotate(360deg);
+        }
+
+        /* ===== SECTION 1: HERO ===== */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+
+        #hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(15, 12, 41, 0.95) 0%, 
+                rgba(48, 43, 99, 0.85) 50%,
+                rgba(36, 36, 62, 0.95) 100%);
+            z-index: 2;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+            background: rgba(168, 85, 247, 0.3);
+            width: 80px;
+            height: 80px;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+            background: rgba(239, 68, 68, 0.3);
+            width: 40px;
+            height: 40px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.3);
+            color: #a5b4fc;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            backdrop-filter: blur(10px);
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 60px;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #a5b4fc;
+            line-height: 1;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #94a3b8;
+        }
+
+        /* ===== SECTION 2: WHY CHOOSE US ===== */
+        .why-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #1e1b47 0%, #0f0c29 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #a5b4fc;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .why-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.1) 0%,
+                rgba(168, 85, 247, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .why-card:hover::before {
+            opacity: 1;
+        }
+
+        .why-card:hover {
+            transform: translateY(-15px) rotateX(10deg);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .card-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== SECTION 3: LEARNING EXPERIENCE ===== */
+        .experience-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            position: relative;
+        }
+
+        .experience-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .experience-image {
+            height: 600px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .experience-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') center/cover;
+            border-radius: 30px;
+        }
+
+        .experience-features {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .experience-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .experience-item:hover {
+            transform: translateX(15px);
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        /* ===== SECTION 4: COURSE CATEGORIES ===== */
+        .categories-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #302b63 0%, #24243e 100%);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: #667eea;
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== SECTION 5: ACHIEVEMENTS ===== */
+        .achievements-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #1e1b47 0%, #0f0c29 100%);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .achievement-item {
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .achievement-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #a5b4fc;
+            line-height: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* ===== SECTION 6: TESTIMONIALS ===== */
+        .testimonials-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto 0;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            display: none;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        .slide-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .slide-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slide-dot.active {
+            background: #a5b4fc;
+            transform: scale(1.3);
+        }
+
+        /* ===== SECTION 7: LEARNING PATHS ===== */
+        .paths-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #24243e 0%, #1e1b47 100%);
+        }
+
+        .paths-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .path-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .path-card:hover {
+            transform: translateY(-20px) rotateX(10deg);
+            border-color: #667eea;
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .path-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .path-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        /* ===== SECTION 8: CTA ===== */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80') center/cover;
+            opacity: 0.2;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .experience-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .experience-image {
+                height: 400px;
+                order: 2;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+            }
+            
+            .hero-stat {
+                min-width: 170px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section, .why-section, .experience-section,
+            .categories-section, .achievements-section, .testimonials-section,
+            .paths-section, .cta-section {
+                padding: 80px 0;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 8vw, 3.5rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .why-grid, .categories-grid, .achievements-grid,
+            .paths-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .hero-stat {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .testimonial-slide {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section, .why-section, .experience-section,
+            .categories-section, .achievements-section, .testimonials-section,
+            .paths-section, .cta-section {
+                padding: 60px 0;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.8rem, 8vw, 2.8rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+            
+            .why-card, .category-card, .achievement-item, .path-card {
+                padding: 30px 20px;
+            }
+            
+            .experience-item {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SECTION 1: HERO -->
+    <section class="hero-section" id="hero">
+        <video autoplay muted loop id="hero-video">
+            <source src="onlineedu1.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge animate-on-scroll">// Welcome to Future Learning //</div>
+                <h1 class="hero-title animate-on-scroll">
+                    Master Skills That <span class="typewriter">Shape Tomorrow</span>
+                </h1>
+                <p class="hero-subtitle animate-on-scroll">
+                    Join the world's most innovative online learning platform where cutting-edge 
+                    technology meets expert-led education. Transform your career with immersive 
+                    courses designed for the digital age.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="404.html" class="btn btn-sparkle animate-left">
+                        <i class="fas fa-rocket"></i> Start Learning Free
+                    </a>
+                    <a href="#why" class="btn btn-secondary animate-right">
+                        <i class="fas fa-play-circle"></i> Explore Platform
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat animate-left stagger-item">
+                        <span class="stat-number" data-count="250000">0</span>
+                        <div class="stat-label">Global Learners</div>
+                    </div>
+                    
+                    <div class="hero-stat animate-on-scroll stagger-item">
+                        <span class="stat-number" data-count="1500">0</span>
+                        <div class="stat-label">Expert Instructors</div>
+                    </div>
+                    
+                    <div class="hero-stat animate-right stagger-item">
+                        <span class="stat-number" data-count="98">0</span>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: WHY CHOOSE US -->
+    <section class="why-section" id="why">
+        <div class="container">
+            <div class="section-header animate-on-scroll-up">
+                <div class="section-tag">// Why SkillSync //</div>
+                <h2 class="section-title">Redefining <span>Online Education</span></h2>
+                <p class="section-description" style="color: #cbd5e1; font-size: 1.2rem;">
+                    We combine innovative technology with proven teaching methodologies to 
+                    create an unparalleled learning experience.
+                </p>
+            </div>
+            
+            <div class="why-grid">
+                <div class="why-card animate-left stagger-item">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.8rem;">AI-Powered Learning</h3>
+                    <p style="color: #cbd5e1;">
+                        Adaptive algorithms create personalized learning paths that evolve 
+                        with your progress and learning style.
+                    </p>
+                </div>
+                
+                <div class="why-card animate-on-scroll stagger-item">
+                    <div class="card-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.8rem;">Immersive VR Labs</h3>
+                    <p style="color: #cbd5e1;">
+                        Practice in realistic virtual environments with hands-on simulations 
+                        that mirror real-world scenarios.
+                    </p>
+                </div>
+                
+                <div class="why-card animate-right stagger-item">
+                    <div class="card-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.8rem;">Industry Partnerships</h3>
+                    <p style="color: #cbd5e1;">
+                        Direct connections with top companies for real projects, internships, 
+                        and guaranteed interviews.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: LEARNING EXPERIENCE -->
+    <section class="experience-section" id="experience">
+        <div class="container">
+            <div class="experience-container">
+                <div class="experience-content animate-left">
+                    <div class="section-tag">// Interactive Learning</div>
+                    <h2 class="section-title">Experience That <span>Engages & Excites</span></h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 40px; color: #cbd5e1;">
+                        Our platform transforms passive learning into an interactive journey 
+                        with gamified elements, live collaboration, and instant feedback.
+                    </p>
+                    
+                    <div class="experience-features">
+                        <div class="experience-item stagger-item">
+                            <h3 style="margin-bottom: 15px; color: #f8fafc; font-size: 1.3rem;">
+                                <i class="fas fa-gamepad" style="color: #667eea; margin-right: 10px;"></i>
+                                Gamified Learning
+                            </h3>
+                            <p style="color: #94a3b8;">
+                                Earn points, badges, and level up as you progress through courses 
+                                and complete challenges.
+                            </p>
+                        </div>
+                        
+                        <div class="experience-item stagger-item">
+                            <h3 style="margin-bottom: 15px; color: #f8fafc; font-size: 1.3rem;">
+                                <i class="fas fa-users" style="color: #764ba2; margin-right: 10px;"></i>
+                                Live Collaboration
+                            </h3>
+                            <p style="color: #94a3b8;">
+                                Work with peers in real-time on group projects, code reviews, 
+                                and problem-solving sessions.
+                            </p>
+                        </div>
+                        
+                        <div class="experience-item stagger-item">
+                            <h3 style="margin-bottom: 15px; color: #f8fafc; font-size: 1.3rem;">
+                                <i class="fas fa-bolt" style="color: #a5b4fc; margin-right: 10px;"></i>
+                                Instant Feedback
+                            </h3>
+                            <p style="color: #94a3b8;">
+                                Get real-time feedback on assignments, quizzes, and projects 
+                                from both AI and human instructors.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experience-image animate-scale"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: COURSE CATEGORIES -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="section-header animate-on-scroll-up">
+                <div class="section-tag">// Explore Categories</div>
+                <h2 class="section-title">Learn <span>Future-Ready Skills</span></h2>
+                <p class="section-description" style="color: #cbd5e1; font-size: 1.2rem;">
+                    Choose from our comprehensive catalog of courses designed for the jobs of 
+                    today and tomorrow.
+                </p>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card animate-left stagger-item">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Web Development</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        Master modern web technologies from front-end to back-end development.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Explore <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="category-card animate-on-scroll stagger-item">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Data Science</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        Learn data analysis, machine learning, and AI with hands-on projects.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Explore <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="category-card animate-on-scroll stagger-item">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Digital Design</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        Create stunning digital experiences with UI/UX and graphic design.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Explore <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="category-card animate-right stagger-item">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Cybersecurity</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        Protect digital assets with cutting-edge security techniques and tools.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Explore <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: ACHIEVEMENTS -->
+    <section class="achievements-section" id="achievements">
+        <div class="container">
+            <div class="section-header animate-on-scroll-up">
+                <div class="section-tag">// Our Impact</div>
+                <h2 class="section-title">Proving <span>Excellence</span></h2>
+                <p class="section-description" style="color: #cbd5e1; font-size: 1.2rem;">
+                    Numbers that showcase our commitment to delivering exceptional learning outcomes.
+                </p>
+            </div>
+            
+            <div class="achievements-grid">
+                <div class="achievement-item animate-left stagger-item">
+                    <div class="achievement-number" data-count="95">0</div>
+                    <h3 style="color: #f8fafc; margin-bottom: 10px;">Career Placement</h3>
+                    <p style="color: #94a3b8;">Students secure jobs within 6 months</p>
+                </div>
+                
+                <div class="achievement-item animate-on-scroll stagger-item">
+                    <div class="achievement-number" data-count="500">0</div>
+                    <h3 style="color: #f8fafc; margin-bottom: 10px;">Industry Partners</h3>
+                    <p style="color: #94a3b8;">Top companies collaborating with us</p>
+                </div>
+                
+                <div class="achievement-item animate-on-scroll stagger-item">
+                    <div class="achievement-number" data-count="4.9">0</div>
+                    <h3 style="color: #f8fafc; margin-bottom: 10px;">Student Rating</h3>
+                    <p style="color: #94a3b8;">Out of 5.0 average platform rating</p>
+                </div>
+                
+                <div class="achievement-item animate-right stagger-item">
+                    <div class="achievement-number" data-count="120">0</div>
+                    <h3 style="color: #f8fafc; margin-bottom: 10px;">Countries</h3>
+                    <p style="color: #94a3b8;">Global reach of our learning community</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: TESTIMONIALS -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header animate-on-scroll-up">
+                <div class="section-tag">// Success Stories</div>
+                <h2 class="section-title">Transformations That <span>Inspire</span></h2>
+                <p class="section-description" style="color: #cbd5e1; font-size: 1.2rem;">
+                    Hear from learners who have achieved remarkable career growth with SkillSync.
+                </p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-slide active animate-scale">
+                    <p class="testimonial-text" style="font-size: 1.4rem; color: white; font-style: italic;">
+                        "SkillSync transformed my career trajectory. The AI-powered learning 
+                        path perfectly matched my goals, and the hands-on projects gave me 
+                        the confidence to excel in job interviews. I tripled my salary in 
+                        just 8 months!"
+                    </p>
+                    <div style="margin-top: 40px;">
+                        <div style="font-weight: 600; font-size: 1.3rem; color: #a5b4fc;">— Emily Rodriguez</div>
+                        <div style="opacity: 0.8; margin-top: 8px;">Senior Developer at TechInnovate</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide animate-scale">
+                    <p class="testimonial-text" style="font-size: 1.4rem; color: white; font-style: italic;">
+                        "As a career changer, I was nervous about switching to tech. SkillSync's 
+                        mentorship program and project-based approach made the transition 
+                        seamless. The VR labs were especially game-changing for learning 
+                        complex concepts."
+                    </p>
+                    <div style="margin-top: 40px;">
+                        <div style="font-weight: 600; font-size: 1.3rem; color: #a5b4fc;">— James Wilson</div>
+                        <div style="opacity: 0.8; margin-top: 8px;">Data Scientist at AnalyticsPro</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide animate-scale">
+                    <p class="testimonial-text" style="font-size: 1.4rem; color: white; font-style: italic;">
+                        "The flexibility of learning at my own pace while working full-time 
+                        was invaluable. The community support and industry connections 
+                        helped me land my dream job before even completing my course."
+                    </p>
+                    <div style="margin-top: 40px;">
+                        <div style="font-weight: 600; font-size: 1.3rem; color: #a5b4fc;">— Sarah Chen</div>
+                        <div style="opacity: 0.8; margin-top: 8px;">UX Lead at DesignStudio</div>
+                    </div>
+                </div>
+                
+                <div class="slide-nav">
+                    <div class="slide-dot active" data-slide="0"></div>
+                    <div class="slide-dot" data-slide="1"></div>
+                    <div class="slide-dot" data-slide="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: LEARNING PATHS -->
+    <section class="paths-section" id="paths">
+        <div class="container">
+            <div class="section-header animate-on-scroll-up">
+                <div class="section-tag">// Personalized Paths</div>
+                <h2 class="section-title">Your Journey <span>Your Way</span></h2>
+                <p class="section-description" style="color: #cbd5e1; font-size: 1.2rem;">
+                    Choose from our expertly crafted learning paths or create your own 
+                    customized curriculum.
+                </p>
+            </div>
+            
+            <div class="paths-container">
+                <div class="path-card animate-left stagger-item">
+                    <div class="card-icon" style="width: 80px; height: 80px; margin-bottom: 25px;">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Career Starter</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        Perfect for beginners looking to break into tech. Build foundational 
+                        skills with guided projects.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Begin Journey <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="path-card animate-on-scroll stagger-item">
+                    <div class="card-icon" style="width: 80px; height: 80px; margin-bottom: 25px;">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Skill Accelerator</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        For professionals looking to upgrade skills. Fast-track learning 
+                        with intensive, focused courses.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Accelerate Now <i class="fas fa-bolt"></i>
+                    </a>
+                </div>
+                
+                <div class="path-card animate-right stagger-item">
+                    <div class="card-icon" style="width: 80px; height: 80px; margin-bottom: 25px;">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: #f8fafc; font-size: 1.5rem;">Expert Mastery</h3>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">
+                        Advanced programs for those seeking mastery. Deep dive into specialized 
+                        topics with expert mentorship.
+                    </p>
+                    <a href="404.html" class="btn" style="padding: 12px 30px; font-size: 0.9rem;">
+                        Master Skills <i class="fas fa-graduation-cap"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: CTA -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <div class="cta-content animate-scale">
+                <div class="section-tag" style="color: white;">// Begin Your Transformation</div>
+                <h2 class="section-title" style="color: white;">
+                    Ready to <span style="color: #a5b4fc;">Unlock Your Potential?</span>
+                </h2>
+                <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto 50px; color: white;">
+                    Join thousands of successful learners who have transformed their careers 
+                    with SkillSync Academy. The future of education is here.
+                </p>
+                
+                <div style="margin-top: 40px;">
+                    <a href="404.html" class="btn btn-sparkle animate-left" style="background: white; color: #667eea; font-size: 1.2rem; padding: 20px 50px;">
+                        <i class="fas fa-gem"></i> Start Free 14-Day Trial
+                    </a>
+                    <a href="#categories" class="btn btn-secondary animate-right" style="border-color: white; color: white; font-size: 1.2rem; padding: 20px 50px;">
+                        <i class="fas fa-compass"></i> Explore All Courses
+                    </a>
+                </div>
+                
+                <p style="margin-top: 40px; color: rgba(255,255,255,0.8); font-size: 1rem;">
+                    <i class="fas fa-check-circle"></i> No credit card required &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <i class="fas fa-check-circle"></i> Full access to all features &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <i class="fas fa-check-circle"></i> Cancel anytime
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ===== INITIALIZE ON PAGE LOAD =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('SkillSync Academy Platform Initialized');
+            
+            // Initialize all components
+            initScrollAnimations();
+            initTestimonialSlider();
+            initCounterAnimation();
+            initButtonActions();
+            initVideoPlayback();
+            initStaggerAnimations();
+            
+            // Initial check for visible elements
+            checkVisibleElements();
+        });
+
+        // ===== SCROLL ANIMATIONS (Up & Down) =====
+        function initScrollAnimations() {
+            const observerDown = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: "0px 0px -100px 0px"
+            });
+
+            const observerUp = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: "0px 0px -100px 0px"
+            });
+
+            // Observe elements for scroll down
+            document.querySelectorAll(
+                '.animate-on-scroll, .animate-left, .animate-right, .animate-scale, .stagger-item'
+            ).forEach(el => {
+                observerDown.observe(el);
+            });
+
+            // Observe elements for scroll up
+            document.querySelectorAll('.animate-on-scroll-up').forEach(el => {
+                observerUp.observe(el);
+            });
+        }
+
+        // ===== STAGGER ANIMATIONS =====
+        function initStaggerAnimations() {
+            const staggerContainers = document.querySelectorAll('.why-grid, .categories-grid, .achievements-grid, .paths-container');
+            
+            staggerContainers.forEach(container => {
+                const items = container.querySelectorAll('.stagger-item');
+                items.forEach((item, index) => {
+                    item.style.transitionDelay = `${index * 0.2}s`;
+                });
+            });
+        }
+
+        function checkVisibleElements() {
+            const animatedElements = document.querySelectorAll(
+                '.animate-on-scroll, .animate-on-scroll-up, .animate-left, .animate-right, .animate-scale, .stagger-item'
+            );
+            
+            animatedElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = (
+                    rect.top < window.innerHeight * 0.85 &&
+                    rect.bottom > 0
+                );
+                
+                if (isVisible && !el.classList.contains('visible')) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        // ===== TESTIMONIAL SLIDER =====
+        function initTestimonialSlider() {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.slide-dot');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            function showSlide(index) {
+                // Hide all slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Remove active class from all dots
+                dots.forEach(dot => {
+                    dot.classList.remove('active');
+                });
+                
+                // Show current slide and activate dot
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
+            
+            // Dot click events
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Auto-advance slider
+            setInterval(() => {
+                let nextSlide = (currentSlide + 1) % totalSlides;
+                showSlide(nextSlide);
+            }, 5000);
+        }
+
+        // ===== COUNTER ANIMATION =====
+        function initCounterAnimation() {
+            const counters = document.querySelectorAll('.stat-number, .achievement-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const updateCounter = () => {
+                                if (current < target) {
+                                    current += increment;
+                                    if (counter.classList.contains('achievement-number')) {
+                                        counter.textContent = Math.ceil(current).toLocaleString();
+                                    } else {
+                                        counter.textContent = Math.ceil(current);
+                                    }
+                                    setTimeout(updateCounter, 20);
+                                } else {
+                                    counter.textContent = target.toLocaleString();
+                                }
+                            };
+                            
+                            updateCounter();
+                            observer.unobserve(counter);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(counter);
+            });
+        }
+
+        // ===== BUTTON ACTIONS =====
+        function initButtonActions() {
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
+                        return; // Allow anchor links to work
+                    }
+                    
+                    if (this.getAttribute('href') === '404.html') {
+                        e.preventDefault();
+                        
+                        // Button animation
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                        
+                        // Show loading state
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+                        this.style.cursor = 'wait';
+                        
+                        // Redirect to 404.html
+                        setTimeout(() => {
+                            window.location.href = '404.html';
+                        }, 800);
+                    }
+                });
+            });
+        }
+
+        // ===== VIDEO PLAYBACK =====
+        function initVideoPlayback() {
+            const heroVideo = document.getElementById('hero-video');
+            if (heroVideo) {
+                heroVideo.playbackRate = 0.8;
+                
+                // Add video controls
+                const videoControls = document.createElement('div');
+                videoControls.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    z-index: 1000;
+                    background: rgba(0,0,0,0.7);
+                    padding: 12px 20px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    color: white;
+                    font-size: 0.9rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.2);
+                    transition: all 0.3s ease;
+                `;
+                videoControls.innerHTML = '<i class="fas fa-volume-up"></i> Unmute Video';
+                document.body.appendChild(videoControls);
+                
+                videoControls.addEventListener('click', function() {
+                    heroVideo.muted = !heroVideo.muted;
+                    if (heroVideo.muted) {
+                        this.innerHTML = '<i class="fas fa-volume-mute"></i> Muted';
+                        this.style.background = 'rgba(239, 68, 68, 0.7)';
+                    } else {
+                        this.innerHTML = '<i class="fas fa-volume-up"></i> Unmute Video';
+                        this.style.background = 'rgba(0,0,0,0.7)';
+                    }
+                });
+                
+                videoControls.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                });
+                
+                videoControls.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            }
+        }
+
+        // ===== SCROLL EVENT LISTENER =====
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    checkVisibleElements();
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ===== PARALLAX EFFECT =====
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const floatingElements = document.querySelectorAll('.floating-element');
+            
+            floatingElements.forEach((element, index) => {
+                const speed = 0.3 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed * 0.1}px) rotate(${scrolled * 0.02}deg)`;
+            });
+        }
+
+        // ===== TYPEWRITER EFFECT =====
+        const typewriterElement = document.querySelector('.typewriter');
+        if (typewriterElement) {
+            setTimeout(() => {
+                typewriterElement.style.animation = 'none';
+                typewriterElement.style.borderRight = 'none';
+            }, 3500);
+        }
+
+        // ===== RESPONSIVE ADJUSTMENTS =====
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 768) {
+                document.querySelectorAll('.animate-left, .animate-right').forEach(el => {
+                    el.style.transform = 'translateY(40px)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
